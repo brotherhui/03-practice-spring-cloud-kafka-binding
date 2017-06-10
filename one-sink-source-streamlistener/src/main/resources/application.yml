@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: one-sink-source
+    name: one-sink-source-streamlistener
   cloud:
     stream:
 # -- Please refer to https://github.com/spring-cloud/spring-cloud-stream-binder-kafka/blob/master/spring-cloud-stream-binder-kafka-docs/src/main/asciidoc/overview.adoc#binding-properties
@@ -33,13 +33,6 @@ spring:
 #            - spanTraceId
 #            - spanName
 #            - messageSent
-      bindings:
-        input:
-          group: messages-group-a
-          destination: sink-source-topic
-        output:
-          group: messages-group-a
-          destination: sink-source-topic
 #        bindings:
 #            liveSource:
 #                binder: kafka
@@ -47,3 +40,16 @@ spring:
 #                    headerMode: raw
 #                    autoCommitOffset: true
 #                destination: topic_example_name
+      bindings:
+        input:
+          group: messages-group-a
+          destination: sink-source-topic
+          content-type: application/json
+#          consumer:
+#            resetOffsets: true
+        output:
+          group: messages-group-a
+          destination: sink-source-topic
+          content-type: application/json
+
+
