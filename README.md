@@ -6,7 +6,7 @@ There are several parts
 2. one-sink-source-streamlistener with StreamListener  only 1 default topic practice with SINK and SOURCE
 3. more-sink-source-streamlistener mutli topics with SINK and SOURCE
 * worked with selfdefined bean message
-4. more-channels with ServiceActivitor mutli channels test
+
 
 
 All workable
