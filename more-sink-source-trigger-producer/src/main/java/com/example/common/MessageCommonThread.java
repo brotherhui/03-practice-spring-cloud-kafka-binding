@@ -1,4 +1,4 @@
-package com.example.service;
+package com.example.common;
 
 import java.util.concurrent.Callable;
 
