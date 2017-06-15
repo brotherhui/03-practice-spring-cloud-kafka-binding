@@ -1,0 +1,51 @@
+server:
+  port: 9091
+
+spring:
+  application:
+    name: more-sink-source
+  cloud:
+    stream:
+# -- Please refer to https://github.com/spring-cloud/spring-cloud-stream-binder-kafka/blob/master/spring-cloud-stream-binder-kafka-docs/src/main/asciidoc/overview.adoc#binding-properties
+      kafka:
+        binder:
+          brokers: localhost:9092
+          zkNodes: localhost:2181
+      bindings:
+        input1:
+          group: messages-group-a
+          destination: topic-a
+          content-type: application/json
+        output1:
+          group: messages-group-a
+          destination: topic-a
+          content-type: application/json
+#          autoCreateTopics: true          
+#          autoAddPartitions: true
+#          configuration:
+#            security:
+#              protocol: SASL_PLAINTEXT
+#          autoCreateTopics: true          
+#          autoAddPartitions: true
+#          headers:
+#            - X-B3-TraceId
+#            - X-B3-SpanId
+#            - X-B3-Sampled
+#            - X-B3-ParentSpanId
+#            - X-Span-Name
+#            - X-Span-Export
+#            - X-Process-Id
+#            - spanId
+#            - spanSampled
+#            - spanProcessId
+#            - spanParentSpanId
+#            - spanTraceId
+#            - spanName
+#            - messageSent
+#        bindings:
+#            liveSource:
+#                binder: kafka
+#                consumer:
+#                    headerMode: raw
+#                    autoCommitOffset: true
+#                destination: topic_example_name
