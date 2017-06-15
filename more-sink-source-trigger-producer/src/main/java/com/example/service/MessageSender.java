@@ -25,7 +25,6 @@ public class MessageSender {
         this.source = source;
     }
 
-    @Async
     public void sendMessage(Data data) {
         this.source.output1().send(MessageBuilder.withPayload(data).build());
     }
