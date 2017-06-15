@@ -10,22 +10,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.data.Data;
-import com.example.service.MessageSender;
+import com.example.service.DataMessageSender;
 
 @RestController
 public class MessageController {
 
 	@Autowired
-    private MessageSender messageSender;
+    private DataMessageSender messageSender;
 
     @GetMapping("/send")
     public ResponseEntity<String> sendMessage(@RequestParam String id) {
-    	//use for to check if it is sync or async
-    	//actually this is sync
-    	for(int i=0;i<1000;i++){
-    		 this.messageSender.sendMessage(new Data(new Date(),""+i));
+    	this.messageSender.sendMessage(new Data(new Date(),id));       
+        return ResponseEntity.ok("Send message to Kafka");
+    }
+    
+    @GetMapping("/sendasync")
+    public ResponseEntity<String> sendMessageAsync() {
+    	for(int i=0; i<100; i++){
+    		try{
+    			this.messageSender.sendMessageAsync(new Data(new Date(),""+i));
+    		}catch(Exception e){
+    			e.printStackTrace();
+    		}
     	}
-       
+    	    
         return ResponseEntity.ok("Send message to Kafka");
     }
 }

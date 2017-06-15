@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.SubscribableChannel;
 
 import com.example.data.Data;
-import com.example.data.MultiSink;
+import com.example.data.ASink;
 
 
 /**
@@ -20,7 +20,7 @@ import com.example.data.MultiSink;
  */
 
 @Configuration
-@EnableBinding(MultiSink.class)
+@EnableBinding(ASink.class)
 public class ConsumerAConfig {
 
 
@@ -29,7 +29,7 @@ public class ConsumerAConfig {
 	/*
 	 * Requirement: receive the message from topic queue
 	 */
-	@StreamListener(MultiSink.SINK1)
+	@StreamListener(ASink.SINK1)
 	public void listen(Data sinkData) {
 		
 		logger.info("Received at MultiSink: " + sinkData.toString());
