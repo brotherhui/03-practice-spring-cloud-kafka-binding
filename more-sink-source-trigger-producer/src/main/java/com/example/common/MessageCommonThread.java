@@ -9,34 +9,35 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.util.concurrent.FailureCallback;
 import org.springframework.util.concurrent.SuccessCallback;
 
+public abstract class MessageCommonThread<T> implements Callable<Object> {
 
-public abstract class MessageCommonThread<T> implements Callable<Object>{
-	
-	private static Logger logger = LoggerFactory.getLogger(MessageCommonThread.class);
-	
+	private static Logger logger = LoggerFactory
+			.getLogger(MessageCommonThread.class);
+
 	private Source source;
 	private T payload;
-	
-	public MessageCommonThread(Source source, T payload){
+
+	public MessageCommonThread(Source source, T payload) {
 		this.source = source;
 		this.payload = payload;
 	}
-	
-    @Override
-    public Boolean call() {
-    	return source.output().send(MessageBuilder.withPayload(payload).build());
-    }
-    
-    
+
+	@Override
+	public Boolean call() {
+		return source.output()
+				.send(MessageBuilder.withPayload(payload).build());
+	}
+
 	public SuccessCallback<Boolean> successCallback(T o) {
 		return new SuccessCallback<Boolean>() {
 			@Override
 			public void onSuccess(Boolean result) {
-				logger.debug("Success to produce message. Message is {}.", result);
+				logger.debug("Success to produce message. Message is {}.",
+						result);
 			}
 		};
 	}
-	
+
 	public FailureCallback failureCallback(T o) {
 		return new FailureCallback() {
 			@Override

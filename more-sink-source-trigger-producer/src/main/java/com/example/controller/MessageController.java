@@ -9,18 +9,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.common.MessageCommonSender;
+import com.example.data.ASource;
 import com.example.data.Data;
-import com.example.service.DataMessageSender;
 
 @RestController
 public class MessageController {
 
 	@Autowired
-    private DataMessageSender messageSender;
+    private MessageCommonSender messageSender;
+	
+	@Autowired
+	private ASource source;
 
     @GetMapping("/send")
     public ResponseEntity<String> sendMessage(@RequestParam String id) {
-    	this.messageSender.sendMessage(new Data(new Date(),id));       
+    	this.messageSender.sendMessage(source, new Data(new Date(),id));       
         return ResponseEntity.ok("Send message to Kafka");
     }
     
@@ -28,7 +32,7 @@ public class MessageController {
     public ResponseEntity<String> sendMessageAsync() {
     	for(int i=0; i<100; i++){
     		try{
-    			this.messageSender.sendMessageAsync(new Data(new Date(),""+i));
+    			this.messageSender.sendMessageAsync(source, new Data(new Date(),""+i));
     		}catch(Exception e){
     			e.printStackTrace();
     		}
