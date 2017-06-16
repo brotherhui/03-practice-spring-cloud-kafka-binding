@@ -1,8 +1,8 @@
 package com.example.service;
 
-import com.example.common.MessageCommonThread;
+import com.example.common.KafkaSourceThread;
 
-public class DataMessageSenderThread extends MessageCommonThread<Object>{
+public class DataMessageSenderThread extends KafkaSourceThread<Object>{
 
 	public DataMessageSenderThread() {
 		super();
