@@ -13,7 +13,7 @@ import org.springframework.util.concurrent.ListenableFuture;
 import com.example.service.DataMessageSenderThread;
 
 @Service
-public class MessageCommonSender{
+public class KafkaMessageSender{
     
     @Autowired
     private ThreadPoolTaskExecutor executor;
@@ -22,7 +22,7 @@ public class MessageCommonSender{
         return source.output().send(MessageBuilder.withPayload(data).build());
     }
     
-    public <T> void sendMessageAsync(MessageCommonThread<T> thread, Source source, T data) throws Exception{
+    public <T> void sendMessageAsync(KafkaSourceThread<T> thread, Source source, T data) throws Exception{
     	thread.init(source, data);
     	ListenableFuture<Object> future = executor.submitListenable(thread);
     	// register a callback with the listener to receive the result of the send asynchronously

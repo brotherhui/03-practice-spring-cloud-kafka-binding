@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.common.MessageCommonSender;
-import com.example.common.MessageCommonThread;
+import com.example.common.KafkaMessageSender;
+import com.example.common.KafkaSourceThread;
 import com.example.data.ASource;
 import com.example.data.Data;
 import com.example.service.DataMessageSenderThread;
@@ -19,7 +19,7 @@ import com.example.service.DataMessageSenderThread;
 public class MessageController {
 
 	@Autowired
-    private MessageCommonSender messageSender;
+    private KafkaMessageSender messageSender;
 	
 	@Autowired
 	private ASource source;
@@ -34,7 +34,7 @@ public class MessageController {
     public ResponseEntity<String> sendMessageAsync() {
     	for(int i=0; i<100; i++){
     		try{
-    			MessageCommonThread thread = new DataMessageSenderThread();
+    			KafkaSourceThread thread = new DataMessageSenderThread();
     			this.messageSender.sendMessageAsync(thread, source, new Data(new Date(),""+i));
     		}catch(Exception e){
     			e.printStackTrace();

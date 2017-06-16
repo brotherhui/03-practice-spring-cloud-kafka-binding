@@ -9,10 +9,10 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.util.concurrent.FailureCallback;
 import org.springframework.util.concurrent.SuccessCallback;
 
-public abstract class MessageCommonThread<T> implements Callable<Object> {
+public abstract class KafkaSourceThread<T> implements Callable<Object> {
 
 	private static Logger logger = LoggerFactory
-			.getLogger(MessageCommonThread.class);
+			.getLogger(KafkaSourceThread.class);
 
 	private Source source;
 	private T payload;
