@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.common.MessageCommonSender;
+import com.example.common.MessageCommonThread;
 import com.example.data.ASource;
 import com.example.data.Data;
+import com.example.service.DataMessageSenderThread;
 
 @RestController
 public class MessageController {
@@ -32,7 +34,8 @@ public class MessageController {
     public ResponseEntity<String> sendMessageAsync() {
     	for(int i=0; i<100; i++){
     		try{
-    			this.messageSender.sendMessageAsync(source, new Data(new Date(),""+i));
+    			MessageCommonThread thread = new DataMessageSenderThread();
+    			this.messageSender.sendMessageAsync(thread, source, new Data(new Date(),""+i));
     		}catch(Exception e){
     			e.printStackTrace();
     		}

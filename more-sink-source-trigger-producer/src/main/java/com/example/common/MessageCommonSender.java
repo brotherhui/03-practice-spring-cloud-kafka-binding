@@ -22,9 +22,9 @@ public class MessageCommonSender{
         return source.output().send(MessageBuilder.withPayload(data).build());
     }
     
-    public <T> void sendMessageAsync(Source source, T data) throws Exception{
-    	DataMessageSenderThread thread = new DataMessageSenderThread(source, data);
-    	ListenableFuture<Boolean> future = executor.submitListenable(thread);
+    public <T> void sendMessageAsync(MessageCommonThread<T> thread, Source source, T data) throws Exception{
+    	thread.init(source, data);
+    	ListenableFuture<Object> future = executor.submitListenable(thread);
     	// register a callback with the listener to receive the result of the send asynchronously
     	future.addCallback(thread.successCallback(data), thread.failureCallback(data));
     }

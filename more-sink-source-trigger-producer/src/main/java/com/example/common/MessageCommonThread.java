@@ -16,8 +16,8 @@ public abstract class MessageCommonThread<T> implements Callable<Object> {
 
 	private Source source;
 	private T payload;
-
-	public MessageCommonThread(Source source, T payload) {
+	
+	public void init(Source source, T payload){
 		this.source = source;
 		this.payload = payload;
 	}
@@ -28,10 +28,10 @@ public abstract class MessageCommonThread<T> implements Callable<Object> {
 				.send(MessageBuilder.withPayload(payload).build());
 	}
 
-	public SuccessCallback<Boolean> successCallback(T o) {
-		return new SuccessCallback<Boolean>() {
+	public SuccessCallback<? super Object> successCallback(T o) {
+		return new SuccessCallback<Object>() {
 			@Override
-			public void onSuccess(Boolean result) {
+			public void onSuccess(Object result) {
 				logger.debug("Success to produce message. Message is {}.",
 						result);
 			}

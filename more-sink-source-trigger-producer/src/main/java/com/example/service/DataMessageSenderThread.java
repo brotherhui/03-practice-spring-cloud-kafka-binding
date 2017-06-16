@@ -1,13 +1,11 @@
 package com.example.service;
 
-import org.springframework.cloud.stream.messaging.Source;
-
 import com.example.common.MessageCommonThread;
 
-public class DataMessageSenderThread extends MessageCommonThread{
+public class DataMessageSenderThread extends MessageCommonThread<Object>{
 
-	public DataMessageSenderThread(Source source, Object payload) {
-		super(source, payload);
+	public DataMessageSenderThread() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 
